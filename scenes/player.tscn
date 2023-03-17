@@ -15,8 +15,9 @@ script = ExtResource("1_22ex5")
 texture_filter = 1
 material = ExtResource("2_amkcb")
 sprite_frames = ExtResource("2_l0bqf")
-animation = &"idle"
+animation = &"fly_side"
 autoplay = "run"
+frame_progress = 0.691915
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -4,4 +4,4 @@ class_name Water
 
 func _on_body_entered(body):
 	if body is Player:
-		gravity = 0.5
+		pass

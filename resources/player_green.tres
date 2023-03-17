@@ -1,14 +1,23 @@
-[gd_resource type="SpriteFrames" load_steps=9 format=3 uid="uid://ccyej4vih0cbp"]
+[gd_resource type="SpriteFrames" load_steps=12 format=3 uid="uid://ccyej4vih0cbp"]
 
 [ext_resource type="Texture2D" uid="uid://dpv1d44usl4ys" path="res://sprites/characters_packed.png" id="1_8baxr"]
 [ext_resource type="Texture2D" uid="uid://brky5a0dncer8" path="res://sprites/player_flying.png" id="1_nai1j"]
+[ext_resource type="Texture2D" uid="uid://ce1a0gq3k4ccl" path="res://sprites/player_flying_UPDOWN.png" id="2_ik4ip"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_blyaq"]
+atlas = ExtResource("1_nai1j")
+region = Rect2(24, 0, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2npfo"]
 atlas = ExtResource("1_nai1j")
 region = Rect2(0, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_blyaq"]
-atlas = ExtResource("1_nai1j")
+[sub_resource type="AtlasTexture" id="AtlasTexture_wdglw"]
+atlas = ExtResource("2_ik4ip")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4ruk"]
+atlas = ExtResource("2_ik4ip")
 region = Rect2(24, 0, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r3uaw"]
@@ -31,13 +40,24 @@ region = Rect2(24, 0, 24, 24)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2npfo")
+"texture": SubResource("AtlasTexture_blyaq")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_blyaq")
+"texture": SubResource("AtlasTexture_2npfo")
 }],
 "loop": true,
-"name": &"fly",
+"name": &"fly_side",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wdglw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4ruk")
+}],
+"loop": true,
+"name": &"fly_updown",
 "speed": 10.0
 }, {
 "frames": [{

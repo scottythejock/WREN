@@ -17,3 +17,11 @@ func play_sound(sound):
 			audioStreamPlayer.stream = sound
 			audioStreamPlayer.play()
 			break
+			
+func stop_sound(sound):
+	for audioStreamPlayer in audioPlayers.get_children():
+		if audioStreamPlayer.playing:
+			audioStreamPlayer.stream = sound
+			audioStreamPlayer.stop()
+			break
+

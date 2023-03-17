@@ -1,4 +1,5 @@
 extends CharacterBody2D
+
 class_name Player
 
 enum { MOVE, CLIMB, FLY }
@@ -11,6 +12,7 @@ var hp = 3
 var coins = 0
 var gems = 0
 var p_scale = 0
+var sound_has_played = false
 
 @export var moveData:Resource = preload("res://resources/defaultplayermovementdata.tres") as PlayerMovementData
 @onready var animatedSprite = $AnimatedSprite2D
@@ -27,7 +29,7 @@ func _physics_process(delta):
 	input.x = Input.get_axis("ui_left","ui_right")
 	input.y = Input.get_axis("ui_up","ui_down")
 	
-	if p_scale <= 4:
+	if p_scale <= 3:
 		if Input.is_action_just_pressed("ui_end"):
 			p_scale += 1
 			animatedSprite.scale += Vector2(1,1)
@@ -67,6 +69,9 @@ func player_hurt():
 		player_die()
 
 func move_state(input):
+	
+	animatedSprite.flip_v = 0
+	
 	if is_on_ladder() and Input.is_action_pressed("ui_up"):
 		state = CLIMB
 	
@@ -119,11 +124,24 @@ func climb_state(input):
 	move_and_slide()
 
 func fly_state(input):
-	#SoundPlayer.play_sound(SoundPlayer.FLY)
+	#animatedSprite.animation = "fly_updown"
+	if !sound_has_played:
+		sound_has_played = true
+		SoundPlayer.play_sound(SoundPlayer.FLY)
 	if Input.is_action_just_pressed("ui_home"):
+		SoundPlayer.stop_sound(SoundPlayer.FLY)
+		animatedSprite.flip_v = 0
 		state = MOVE
-	animatedSprite.flip_h = input.x > 0
-	animatedSprite.animation = "fly"
+		sound_has_played = false
+	if horizontal_move(input):
+		animatedSprite.flip_h = input.x > 0
+	if vertical_move(input):
+		animatedSprite.flip_v = input.y > 0
+	if Input.get_axis("ui_left","ui_right"):
+		animatedSprite.animation = "fly_side"
+		animatedSprite.flip_v = 0
+	if Input.get_axis("ui_up","ui_down"):
+		animatedSprite.animation = "fly_updown"	
 	velocity = input * moveData.FLY_SPEED 
 	move_and_slide()
 
@@ -148,7 +166,6 @@ func collect_hp():
 	for node in World.hpUI.get_children():
 		if node is Label:
 			node.set_text(str(hp))
-
 			
 func player_die():
 	SoundPlayer.play_sound(SoundPlayer.LOSE)
@@ -179,6 +196,9 @@ func can_jump():
 func horizontal_move(input):
 	return input.x != 0
 
+func vertical_move(input):
+	return input.y != 0
+
 func reset_double_jump():
 	#Reset doule jump
 	double_jump = moveData.DOUBLE_JUMP_COUNT 
@@ -188,6 +208,11 @@ func input_jump():
 		SoundPlayer.play_sound(SoundPlayer.JUMP)
 		velocity.y = moveData.JUMP_FORCE
 		buffered_jump = false
+
+func jump_after_hit():
+	SoundPlayer.play_sound(SoundPlayer.JUMP)
+	velocity.y = moveData.JUMP_FORCE
+	buffered_jump = false
 
 func is_on_ladder():
 	# checking if we are colliding with ladder

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/coin_ui.gd" id="1_8mncn"]
 [ext_resource type="Texture2D" uid="uid://cwdaiyw2v2fkv" path="res://sprites/tiles_packed.png" id="2_7wgpj"]
-[ext_resource type="FontFile" uid="uid://dseou1ilml4d8" path="res://GravityBold8.ttf" id="2_gxsrt"]
+[ext_resource type="FontFile" uid="uid://dseou1ilml4d8" path="res://fonts/GravityBold8.ttf" id="2_gxsrt"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_mgt2h"]
 font = ExtResource("2_gxsrt")

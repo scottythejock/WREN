@@ -1,6 +1,9 @@
 extends CharacterBody2D
 
+class_name WalkingEnemy
+
 var direction = Vector2.RIGHT
+var hp = 2
 
 @onready var ledgeCheckRight: = $LedgeCheckRight
 @onready var ledgeCheckleft: = $LedgeCheckLeft
@@ -29,3 +32,6 @@ func _physics_process(delta):
 	velocity = direction * 25
 	move_and_slide()
 	
+func flash():
+	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0.8)
+	$FlashTimer.start()
