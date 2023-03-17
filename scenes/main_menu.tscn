@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://hbpfhk4dme7l"]
 
-[ext_resource type="FontFile" uid="uid://dseou1ilml4d8" path="res://GravityBold8.ttf" id="2_3767i"]
+[ext_resource type="FontFile" uid="uid://dseou1ilml4d8" path="res://fonts/GravityBold8.ttf" id="2_3767i"]
 
 [sub_resource type="GDScript" id="GDScript_ej2ah"]
 script/source = "extends Control
