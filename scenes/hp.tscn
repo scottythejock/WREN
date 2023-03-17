@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://bwu2ogqf80me0"]
+
+[ext_resource type="Script" path="res://scripts/hp.gd" id="1_hsk1m"]
+[ext_resource type="Texture2D" uid="uid://cwdaiyw2v2fkv" path="res://sprites/tiles_packed.png" id="2_tqig3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_27dqc"]
+atlas = ExtResource("2_tqig3")
+region = Rect2(73, 37, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yxcgn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_27dqc")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x75bp"]
+radius = 7.0
+
+[node name="hp" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_hsk1m")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_yxcgn")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_x75bp")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

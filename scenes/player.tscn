@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://jhqhary86qn8"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_22ex5"]
+[ext_resource type="Material" uid="uid://bsxomam75ir56" path="res://resources/new_shader_material.tres" id="2_amkcb"]
+[ext_resource type="SpriteFrames" uid="uid://ccyej4vih0cbp" path="res://resources/player_green.tres" id="2_l0bqf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x8ghd"]
+size = Vector2(12, 17)
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_22ex5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+material = ExtResource("2_amkcb")
+sprite_frames = ExtResource("2_l0bqf")
+animation = &"idle"
+autoplay = "run"
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_x8ghd")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="LadderCheck" type="RayCast2D" parent="."]
+position = Vector2(0, -1)
+target_position = Vector2(0, 14)
+hit_from_inside = true
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="JumpBufferTimer" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="CoyoteJumpTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="FlashTimer" type="Timer" parent="."]
+wait_time = 0.15
+
+[connection signal="timeout" from="JumpBufferTimer" to="." method="_on_jump_buffer_timer_timeout"]
+[connection signal="timeout" from="CoyoteJumpTimer" to="." method="_on_coyote_jump_timer_timeout"]
+[connection signal="timeout" from="FlashTimer" to="." method="_on_flash_timer_timeout"]

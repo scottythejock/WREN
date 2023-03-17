@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/walking_enemy.gd" id="1_161yu"]
+[ext_resource type="Texture2D" uid="uid://dpv1d44usl4ys" path="res://sprites/characters_packed.png" id="1_wo7fs"]
+[ext_resource type="PackedScene" path="res://scenes/hitbox.tscn" id="3_ytji5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7y0c6"]
+atlas = ExtResource("1_wo7fs")
+region = Rect2(144, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vyv04"]
+atlas = ExtResource("1_wo7fs")
+region = Rect2(168, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8t6c0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7y0c6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vyv04")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gemh2"]
+size = Vector2(11, 10)
+
+[node name="WalkingEnemy" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_161yu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_8t6c0")
+animation = &"walking"
+autoplay = "walking"
+frame_progress = 0.76324
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -5)
+shape = SubResource("RectangleShape2D_gemh2")
+
+[node name="LedgeCheckRight" type="RayCast2D" parent="."]
+position = Vector2(5, -1)
+target_position = Vector2(0, 4)
+
+[node name="LedgeCheckLeft" type="RayCast2D" parent="."]
+position = Vector2(-6, -1)
+target_position = Vector2(0, 4)
+
+[node name="Hitbox" parent="." instance=ExtResource("3_ytji5")]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox"]
+polygon = PackedVector2Array(-1, -16, -2, -14, -2, -12, -8, -10, -8, 0, 7, 0, 7, -10, 1, -12, 1, -14, 0, -16)

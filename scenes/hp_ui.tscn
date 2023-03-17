@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://c03i7k3j1e0j1"]
+
+[ext_resource type="Script" path="res://scripts/hp_ui.gd" id="1_4gaml"]
+[ext_resource type="Texture2D" uid="uid://cwdaiyw2v2fkv" path="res://sprites/tiles_packed.png" id="2_3tmis"]
+[ext_resource type="FontFile" uid="uid://dseou1ilml4d8" path="res://GravityBold8.ttf" id="2_560vb"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_sbb8t"]
+font = ExtResource("2_560vb")
+font_size = 8
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[node name="hpCounter" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4gaml")
+
+[node name="hp" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 30.0
+offset_top = 12.0
+offset_right = 47.0
+offset_bottom = 31.0
+text = "3"
+label_settings = SubResource("LabelSettings_sbb8t")
+
+[node name="hpIcon" type="Sprite2D" parent="."]
+position = Vector2(14, 16)
+texture = ExtResource("2_3tmis")
+region_enabled = true
+region_rect = Rect2(74, 39, 14, 12)

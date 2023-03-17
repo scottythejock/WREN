@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://d202ihoqflrns"]
+
+[ext_resource type="Script" path="res://scripts/gems.gd" id="1_4pfcf"]
+[ext_resource type="Texture2D" uid="uid://cwdaiyw2v2fkv" path="res://sprites/tiles_packed.png" id="2_g4tv7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1j8n4"]
+atlas = ExtResource("2_g4tv7")
+region = Rect2(126, 54, 18, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yxcgn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1j8n4")
+}],
+"loop": true,
+"name": &"spinning",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x75bp"]
+radius = 7.0
+
+[node name="gems" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_4pfcf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_yxcgn")
+animation = &"spinning"
+autoplay = "spinning"
+frame_progress = 0.910347
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_x75bp")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

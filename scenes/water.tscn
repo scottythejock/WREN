@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Texture2D" uid="uid://cwdaiyw2v2fkv" path="res://sprites/tiles_packed.png" id="1_gid4r"]
+[ext_resource type="Script" path="res://scripts/water.gd" id="1_kgu55"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iyhj5"]
+size = Vector2(17.9293, 34.0066)
+
+[node name="Water" type="Area2D"]
+modulate = Color(1, 1, 1, 0.537255)
+z_index = 5
+gravity_space_override = 3
+gravity = -595.385
+script = ExtResource("1_kgu55")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_gid4r")
+region_enabled = true
+region_rect = Rect2(234, 36, 18, 36)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.0647964, 1.00328)
+shape = SubResource("RectangleShape2D_iyhj5")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
