@@ -49,3 +49,6 @@ theme_override_colors/icon_focus_color = Color(0.282353, 1, 0.658824, 1)
 theme_override_fonts/font = ExtResource("2_kqj2o")
 text = "quit"
 alignment = 0
+
+[connection signal="pressed" from="VBoxContainer/resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="VBoxContainer/quit" to="." method="_on_quit_pressed"]

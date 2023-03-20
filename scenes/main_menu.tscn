@@ -33,10 +33,10 @@ color = Color(0.0862745, 0.254902, 0.27451, 1)
 [node name="title" type="Label" parent="."]
 texture_filter = 1
 layout_mode = 0
-offset_left = 80.0
-offset_top = 32.0
-offset_right = 238.0
-offset_bottom = 77.0
+offset_left = 24.0
+offset_top = 48.0
+offset_right = 204.0
+offset_bottom = 99.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 16
@@ -46,10 +46,10 @@ text = "WREN"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 80.0
-offset_top = 96.0
-offset_right = 158.0
-offset_bottom = 154.0
+offset_left = 24.0
+offset_top = 112.0
+offset_right = 102.0
+offset_bottom = 170.0
 theme_override_constants/separation = 5
 
 [node name="start" type="Button" parent="VBoxContainer" node_paths=PackedStringArray("shortcut_context")]

@@ -76,6 +76,7 @@ func move_state(input):
 		state = CLIMB
 	
 	if Input.is_action_just_pressed("ui_home"):
+		SoundPlayer.play_sound(SoundPlayer.FLY)
 		state = FLY
 	
 	apply_gravity()
@@ -125,14 +126,13 @@ func climb_state(input):
 
 func fly_state(input):
 	#animatedSprite.animation = "fly_updown"
-	if !sound_has_played:
-		sound_has_played = true
-		SoundPlayer.play_sound(SoundPlayer.FLY)
+	#if !sound_has_played:
+		#sound_has_played = true
+		#SoundPlayer.play_sound(SoundPlayer.FLY)
 	if Input.is_action_just_pressed("ui_home"):
 		SoundPlayer.stop_sound(SoundPlayer.FLY)
 		animatedSprite.flip_v = 0
 		state = MOVE
-		sound_has_played = false
 	if horizontal_move(input):
 		animatedSprite.flip_h = input.x > 0
 	if vertical_move(input):

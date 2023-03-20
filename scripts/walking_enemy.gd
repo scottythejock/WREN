@@ -13,7 +13,9 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 
 func _physics_process(delta):
-	
+	if hp <= 0:
+		$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0)
+		queue_free()
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -35,3 +37,15 @@ func _physics_process(delta):
 func flash():
 	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0.8)
 	$FlashTimer.start()
+
+
+func _on_hitbox_body_entered(body):
+	if body is Player:
+		body.jump_after_hit()
+		hp -= 1
+		flash()
+		print("HP: " + str(hp))
+
+
+func _on_flash_timer_timeout():
+	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0)

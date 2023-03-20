@@ -45,9 +45,6 @@ point_count = 6
 process_mode = 1
 script = ExtResource("1_sgade")
 
-[node name="Pause" parent="." instance=ExtResource("3_2jmyj")]
-visible = false
-
 [node name="Player" parent="." instance=ExtResource("2_qtl06")]
 z_index = 1
 position = Vector2(-128, -115)
@@ -540,5 +537,7 @@ position = Vector2(1062, 72)
 
 [node name="DamageWalkingEnemy2" parent="." instance=ExtResource("16_u24f3")]
 position = Vector2(402, 271)
+
+[node name="Pause" parent="." instance=ExtResource("3_2jmyj")]
 
 [editable path="Player/CoinCounter"]
