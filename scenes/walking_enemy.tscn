@@ -1,12 +1,16 @@
-[gd_scene load_steps=12 format=3 uid="uid://bo8ia34dgkg3d"]
+[gd_scene load_steps=15 format=3 uid="uid://bo8ia34dgkg3d"]
 
 [ext_resource type="Script" path="res://scripts/walking_enemy.gd" id="1_161yu"]
 [ext_resource type="Texture2D" uid="uid://dpv1d44usl4ys" path="res://sprites/characters_packed.png" id="1_wo7fs"]
+[ext_resource type="PackedScene" uid="uid://cg55clgqa14ae" path="res://scenes/hitbox.tscn" id="2_8c2gu"]
 [ext_resource type="Shader" path="res://scenes/walking_enemy.gdshader" id="2_waobg"]
-[ext_resource type="PackedScene" uid="uid://cg55clgqa14ae" path="res://scenes/hitbox.tscn" id="3_ytji5"]
-[ext_resource type="Script" path="res://scripts/killhitbox.gd" id="5_va5cd"]
+[ext_resource type="PackedScene" uid="uid://cjmi3gxjwp2ev" path="res://scenes/killhitbox.tscn" id="4_i25jh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gemh2"]
+size = Vector2(20, 11)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lic4a"]
+resource_local_to_scene = true
 shader = ExtResource("2_waobg")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_modifier = 0.0
@@ -33,15 +37,51 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gemh2"]
-size = Vector2(20, 15)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0psn3"]
-size = Vector2(20, 15)
+size = Vector2(13, 7)
+
+[sub_resource type="Gradient" id="Gradient_ps2yr"]
+offsets = PackedFloat32Array(0, 0.986928)
+colors = PackedColorArray(1, 0.728234, 0.62094, 0.894118, 0.254233, 0.748276, 0.959678, 0.905882)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rmf1f"]
+gradient = SubResource("Gradient_ps2yr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fu4cv"]
+lifetime_randomness = 0.8
+emission_shape = 3
+emission_box_extents = Vector3(4, 2, 0)
+particle_flag_disable_z = true
+direction = Vector3(0, -50, 0)
+spread = 100.0
+gravity = Vector3(0, 200, 0)
+initial_velocity_min = 60.0
+initial_velocity_max = 90.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+angle_min = 10.0
+angle_max = 180.0
+scale_min = 2.0
+scale_max = 4.0
+color_ramp = SubResource("GradientTexture1D_rmf1f")
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 1.0
 
 [node name="WalkingEnemy" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_161yu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10.5)
+shape = SubResource("RectangleShape2D_gemh2")
+
+[node name="Hitbox" parent="." instance=ExtResource("2_8c2gu")]
+position = Vector2(413.626, -78.4791)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-413.626, 67.9791)
+shape = SubResource("RectangleShape2D_gemh2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_lic4a")
@@ -51,10 +91,6 @@ animation = &"walking"
 autoplay = "walking"
 frame = 1
 frame_progress = 0.330885
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -12.5)
-shape = SubResource("RectangleShape2D_gemh2")
 
 [node name="LedgeCheckRight" type="RayCast2D" parent="."]
 position = Vector2(9, -5)
@@ -66,14 +102,23 @@ target_position = Vector2(0, 5)
 
 [node name="FlashTimer" type="Timer" parent="."]
 wait_time = 0.15
+one_shot = true
 
-[node name="Hitbox" parent="." instance=ExtResource("3_ytji5")]
-collision_layer = 1
-script = ExtResource("5_va5cd")
+[node name="KillHitbox" parent="." instance=ExtResource("4_i25jh")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(0, -12.5)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillHitbox"]
+position = Vector2(-0.5, -19.5)
 shape = SubResource("RectangleShape2D_0psn3")
 
+[node name="HitParticles" type="GPUParticles2D" parent="."]
+z_index = 10
+position = Vector2(0, -14)
+emitting = false
+amount = 6
+process_material = SubResource("ParticleProcessMaterial_fu4cv")
+lifetime = 0.8
+one_shot = true
+explosiveness = 1.0
+
 [connection signal="timeout" from="FlashTimer" to="." method="_on_flash_timer_timeout"]
-[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_entered" from="KillHitbox" to="." method="_on_kill_hitbox_body_entered"]

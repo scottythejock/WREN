@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://jhqhary86qn8"]
+[gd_scene load_steps=8 format=3 uid="uid://jhqhary86qn8"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_22ex5"]
 [ext_resource type="Material" uid="uid://bsxomam75ir56" path="res://resources/new_shader_material.tres" id="2_amkcb"]
@@ -6,6 +6,28 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x8ghd"]
 size = Vector2(12, 17)
+
+[sub_resource type="Gradient" id="Gradient_xr71h"]
+colors = PackedColorArray(0.856067, 0.856067, 0.856067, 0.392157, 0.894922, 0.894922, 0.894922, 0.313726)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lvmal"]
+gradient = SubResource("Gradient_xr71h")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hkvvc"]
+lifetime_randomness = 0.5
+emission_shape = 3
+emission_box_extents = Vector3(4, 1, 0)
+particle_flag_disable_z = true
+direction = Vector3(0, -20, 0)
+gravity = Vector3(0, 10, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 2.0
+scale_max = 4.0
+color = Color(1, 1, 1, 0.392157)
+color_ramp = SubResource("GradientTexture1D_lvmal")
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -15,9 +37,8 @@ script = ExtResource("1_22ex5")
 texture_filter = 1
 material = ExtResource("2_amkcb")
 sprite_frames = ExtResource("2_l0bqf")
-animation = &"fly_side"
+animation = &"idle"
 autoplay = "run"
-frame_progress = 0.691915
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -42,6 +63,13 @@ one_shot = true
 
 [node name="FlashTimer" type="Timer" parent="."]
 wait_time = 0.15
+
+[node name="LandParticles" type="GPUParticles2D" parent="."]
+position = Vector2(0, 12)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_hkvvc")
+one_shot = true
+explosiveness = 1.0
 
 [connection signal="timeout" from="JumpBufferTimer" to="." method="_on_jump_buffer_timer_timeout"]
 [connection signal="timeout" from="CoyoteJumpTimer" to="." method="_on_coyote_jump_timer_timeout"]

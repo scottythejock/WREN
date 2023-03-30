@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://duwk31tfbrx4i"]
+
+[ext_resource type="Texture2D" uid="uid://cwdaiyw2v2fkv" path="res://sprites/tiles_packed.png" id="1_brakt"]
+[ext_resource type="Script" path="res://scripts/door.gd" id="1_k7ltv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gk1p2"]
+size = Vector2(18, 23)
+
+[node name="WorldOneToTwoDoor" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_k7ltv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_brakt")
+region_enabled = true
+region_rect = Rect2(180, 90, 18, 36)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 2
+position = Vector2(0, 6.5)
+shape = SubResource("RectangleShape2D_gk1p2")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

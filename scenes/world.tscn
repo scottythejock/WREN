@@ -1,13 +1,14 @@
-[gd_scene load_steps=21 format=3 uid="uid://cofhpvod5gl5o"]
+[gd_scene load_steps=24 format=3 uid="uid://ctqh0h485rxkt"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_sgade"]
 [ext_resource type="PackedScene" uid="uid://jhqhary86qn8" path="res://scenes/player.tscn" id="2_qtl06"]
 [ext_resource type="PackedScene" uid="uid://cv4p1qib4hu8w" path="res://scenes/pause.tscn" id="3_2jmyj"]
 [ext_resource type="PackedScene" uid="uid://c0pgkwvin4t4d" path="res://scenes/tile_map.tscn" id="3_ngfu6"]
-[ext_resource type="PackedScene" path="res://scenes/water.tscn" id="4_h7pk5"]
+[ext_resource type="PackedScene" uid="uid://bw3afh4qj5ypi" path="res://scenes/water.tscn" id="4_h7pk5"]
 [ext_resource type="PackedScene" uid="uid://c03i7k3j1e0j1" path="res://scenes/hp_ui.tscn" id="4_qafep"]
 [ext_resource type="PackedScene" uid="uid://b3tdy7d0rhaxc" path="res://scenes/gems_ui.tscn" id="5_h7ggr"]
 [ext_resource type="PackedScene" path="res://scenes/ladder.tscn" id="5_ycpx1"]
+[ext_resource type="PackedScene" uid="uid://ckhb170togugp" path="res://scenes/key_ui.tscn" id="6_32yjc"]
 [ext_resource type="PackedScene" uid="uid://cxgivh64epahd" path="res://scenes/coin.tscn" id="6_m13te"]
 [ext_resource type="PackedScene" path="res://scenes/spikes.tscn" id="7_q2if4"]
 [ext_resource type="PackedScene" uid="uid://bo8ia34dgkg3d" path="res://scenes/walking_enemy.tscn" id="8_ne2ij"]
@@ -16,6 +17,8 @@
 [ext_resource type="PackedScene" uid="uid://bb8y83frllu7" path="res://scenes/coin_ui.tscn" id="10_t1mr2"]
 [ext_resource type="PackedScene" uid="uid://bwu2ogqf80me0" path="res://scenes/hp.tscn" id="14_umapv"]
 [ext_resource type="PackedScene" uid="uid://jm7n1bn66o7i" path="res://scenes/damage_walking_enemy.tscn" id="16_u24f3"]
+[ext_resource type="PackedScene" uid="uid://c7847gm808fwc" path="res://scenes/key.tscn" id="18_vxg0t"]
+[ext_resource type="PackedScene" uid="uid://duwk31tfbrx4i" path="res://scenes/worldonetotwodoor.tscn" id="19_0qr1o"]
 
 [sub_resource type="Curve2D" id="Curve2D_tdgq8"]
 _data = {
@@ -48,6 +51,12 @@ script = ExtResource("1_sgade")
 [node name="Player" parent="." instance=ExtResource("2_qtl06")]
 z_index = 1
 position = Vector2(-128, -115)
+
+[node name="keyUI" parent="Player" instance=ExtResource("6_32yjc")]
+offset_left = -159.0
+offset_top = -69.0
+offset_right = -159.0
+offset_bottom = -69.0
 
 [node name="hpCounter" parent="Player" instance=ExtResource("4_qafep")]
 offset_left = -160.0
@@ -399,7 +408,7 @@ position = Vector2(368, 210)
 position = Vector2(658, 246)
 
 [node name="WalkingEnemy4" parent="." instance=ExtResource("8_ne2ij")]
-position = Vector2(854, 273)
+position = Vector2(855, 271)
 
 [node name="coin11" parent="." instance=ExtResource("6_m13te")]
 position = Vector2(1188, 48)
@@ -479,7 +488,7 @@ position = Vector2(745, -805)
 position = Vector2(-129, -691)
 
 [node name="WalkingEnemy5" parent="." instance=ExtResource("8_ne2ij")]
-position = Vector2(-62, -687)
+position = Vector2(-80, -686)
 
 [node name="gems" parent="." instance=ExtResource("10_sx214")]
 position = Vector2(189, -533)
@@ -539,5 +548,15 @@ position = Vector2(1062, 72)
 position = Vector2(402, 271)
 
 [node name="Pause" parent="." instance=ExtResource("3_2jmyj")]
+visible = false
+
+[node name="Key" parent="." instance=ExtResource("18_vxg0t")]
+position = Vector2(-189, 25)
+
+[node name="Door" parent="." instance=ExtResource("19_0qr1o")]
+position = Vector2(-97, 37)
+
+[node name="WalkingEnemy7" parent="." instance=ExtResource("8_ne2ij")]
+position = Vector2(-166, 56)
 
 [editable path="Player/CoinCounter"]

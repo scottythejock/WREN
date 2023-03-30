@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckhb170togugp"]
+
+[ext_resource type="Script" path="res://scripts/key_ui.gd" id="1_epxhe"]
+[ext_resource type="Texture2D" uid="uid://cwdaiyw2v2fkv" path="res://sprites/tiles_packed.png" id="3_3yp2v"]
+
+[node name="keyUI" type="Control"]
+visible = false
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_epxhe")
+
+[node name="keyIcon" type="Sprite2D" parent="."]
+position = Vector2(14, 16)
+texture = ExtResource("3_3yp2v")
+region_enabled = true
+region_rect = Rect2(126, 18, 18, 18)

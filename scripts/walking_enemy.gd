@@ -7,15 +7,14 @@ var hp = 2
 
 @onready var ledgeCheckRight: = $LedgeCheckRight
 @onready var ledgeCheckleft: = $LedgeCheckLeft
+@onready var particles: = $HitParticles
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 
 func _physics_process(delta):
-	if hp <= 0:
-		$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0)
-		queue_free()
+		
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -39,13 +38,16 @@ func flash():
 	$FlashTimer.start()
 
 
-func _on_hitbox_body_entered(body):
+func _on_flash_timer_timeout():
+	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0)
+	if hp <= 0:
+		$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0)
+		SoundPlayer.play_sound(SoundPlayer.ENEMYHURT)
+		queue_free()
+
+func _on_kill_hitbox_body_entered(body):
 	if body is Player:
+		particles.emitting = true
 		body.jump_after_hit()
 		hp -= 1
 		flash()
-		print("HP: " + str(hp))
-
-
-func _on_flash_timer_timeout():
-	$AnimatedSprite2D.material.set_shader_parameter("flash_modifier", 0)

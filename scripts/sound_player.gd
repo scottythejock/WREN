@@ -8,6 +8,7 @@ const GEM = preload("res://sounds/gem.wav")
 const FLY = preload("res://sounds/fly.wav")
 const HP = preload("res://sounds/hp.wav")
 const LAND = preload("res://sounds/land.wav")
+const ENEMYHURT = preload("res://sounds/enemyHurt.wav")
 
 @onready var audioPlayers = $AudioPlayers
 

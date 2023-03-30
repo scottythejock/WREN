@@ -13,6 +13,7 @@ var coins = 0
 var gems = 0
 var p_scale = 0
 var sound_has_played = false
+var has_key = false
 
 @export var moveData:Resource = preload("res://resources/defaultplayermovementdata.tres") as PlayerMovementData
 @onready var animatedSprite = $AnimatedSprite2D
@@ -20,6 +21,7 @@ var sound_has_played = false
 @onready var jumpBufferTimer = $JumpBufferTimer
 @onready var coyoteJumpTimer = $CoyoteJumpTimer
 @onready var flashTimer = $FlashTimer
+@onready var particles = $LandParticles
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -51,6 +53,11 @@ func _ready():
 		if node is Label:
 			node.set_text(str(hp))
 	
+func got_key():
+	has_key = true
+	$keyUI.visible = true
+	print("Player has the key")
+
 func flash():
 	animatedSprite.material.set_shader_parameter("flash_modifier", 0.8)
 	flashTimer.start()
@@ -208,6 +215,7 @@ func input_jump():
 		SoundPlayer.play_sound(SoundPlayer.JUMP)
 		velocity.y = moveData.JUMP_FORCE
 		buffered_jump = false
+		particles.emitting = true
 
 func jump_after_hit():
 	SoundPlayer.play_sound(SoundPlayer.JUMP)

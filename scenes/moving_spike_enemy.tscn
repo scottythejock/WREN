@@ -74,8 +74,8 @@ curve = SubResource("Curve2D_060gp")
 script = ExtResource("1_drybd")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
-position = Vector2(60.2078, 151.74)
-progress = 107.789
+position = Vector2(60.2246, 149.455)
+progress = 105.449
 rotates = false
 
 [node name="Enemy" type="Node2D" parent="PathFollow2D"]
